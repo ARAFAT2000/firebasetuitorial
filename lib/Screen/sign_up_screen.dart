@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebasetuitorial/Utils/round_button.dart';
 import 'package:firebasetuitorial/Utils/textfield_design.dart';
+import 'package:firebasetuitorial/Utils/tost_message.dart';
 import 'package:flutter/material.dart';
 
 import 'sign_in_screen.dart';
@@ -16,8 +17,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   FirebaseAuth _auth = FirebaseAuth.instance;
   final email= TextEditingController();
   final password= TextEditingController();
+  bool loading=false;
 
   final _key= GlobalKey<FormState>();
+
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -61,27 +65,47 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(
                   height: size.height/25,
                 ),
+
                 RoundButton(
-                    text: 'Sign Up',
-                    onTap: (){
-              if(_key.currentState!.validate()){
-                _auth.createUserWithEmailAndPassword(
-                    email: email.text.toString(),
-                    password: password.text.toString());
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInScreen()));
+                  loading: loading,
+                  title: 'Sign Up',
+                  onTap: (){
+                    if(_key.currentState!.validate()){
+                      setState(() {
+                        loading=true;
+                      });
+                      _auth.createUserWithEmailAndPassword(
+                          email:email.text.toString(),
+                          password: password.text.toString()).then((value) {
+                        setState(() {
+                          loading=false;
+                        });
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInScreen()));
+                      }).
+                      onError((error, stackTrace) {
+                        Utils().toastmassege(error.toString());
+                        setState(() {
+                          loading=false;
+                        });
+                      });
+                    }
+                  },
+                ),
 
-              }
-
-                    },
-                  height: 50,
-                  weight: 300,
-
-                )
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+
+    email.dispose();
+    password.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 }
