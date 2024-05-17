@@ -1,5 +1,8 @@
+import 'package:firebasetuitorial/realtime_database/realtime_fetch_page.dart';
+import 'package:firebasetuitorial/realtime_database/write_page.dart';
 import 'package:flutter/material.dart';
 
+import 'Page/home_page.dart';
 import 'Screen/sign_up_screen.dart';
 import 'Screen/splass_screen.dart';
 
@@ -16,7 +19,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:SplassScreen(),
+      home:RealtimeWrite(),
     );
   }
 }
