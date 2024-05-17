@@ -35,7 +35,11 @@ class _FetchPageState extends State<FetchPage> {
                   itemBuilder: (context,snapshot,animation,index){
                     return Card(
                       child: ListTile(
-                        leading: Icon(Icons.person),
+                        leading: IconButton(
+                            onPressed: (){
+                              ref.child(snapshot.child('Id').value.toString()).remove();
+                            },
+                            icon: Icon(Icons.delete)),
                         title: Text(snapshot.child('title').value.toString()),
                       subtitle: Text(snapshot.child('Id').value.toString()),
                          trailing: IconButton(
