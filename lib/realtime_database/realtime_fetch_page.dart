@@ -14,7 +14,7 @@ class FetchPage extends StatefulWidget {
 class _FetchPageState extends State<FetchPage> {
 
 
-
+ final editController= TextEditingController();
   final ref=FirebaseDatabase.instance.ref().child('Post');
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,11 @@ class _FetchPageState extends State<FetchPage> {
                         leading: Icon(Icons.person),
                         title: Text(snapshot.child('title').value.toString()),
                       subtitle: Text(snapshot.child('Id').value.toString()),
-
+                         trailing: IconButton(
+                             onPressed: (){
+                             UpdateData(snapshot.child('title').value.toString(), snapshot.child('Id').value.toString());
+                             },
+                             icon: Icon(Icons.edit)),
                       ),
                     );
                   }),
@@ -49,4 +53,32 @@ class _FetchPageState extends State<FetchPage> {
     );
   }
 
+  Future<void> UpdateData(String title,String id){
+    editController.text=title;
+    return showDialog(context: context,
+        builder: (context){
+      return AlertDialog(
+         title: Text('Update'),
+        content: Container(
+          child: TextField(
+            controller: editController,
+          )
+        ),
+        actions: [
+          TextButton(onPressed: (){
+            Navigator.pop(context);
+          }, child: Text('Cancel')),
+          TextButton(onPressed: (){
+            ref.child(id).update({
+              'title': editController.text.toString()
+            });
+            Navigator.pop(context);
+
+          }, child: Text('Update')),
+        ],
+
+      );
+        });
+
+  }
 }

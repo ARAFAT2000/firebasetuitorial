@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebasetuitorial/Utils/round_button.dart';
 import 'package:firebasetuitorial/Utils/tost_message.dart';
 import 'package:firebasetuitorial/realtime_database/realtime_fetch_page.dart';
@@ -71,7 +69,7 @@ class _RealtimeWriteState extends State<RealtimeWrite> {
                      'Id':id
                    };
                    //referace.push(). ---
-                   referace.push().set(Information)
+                   referace.child(id).set(Information)
                        .then((value) {
                      setState(() {
                        loading=false;
