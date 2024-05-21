@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebasetuitorial/Utils/round_button.dart';
 import 'package:firebasetuitorial/Utils/tost_message.dart';
@@ -15,6 +16,7 @@ class _RealtimeWriteState extends State<RealtimeWrite> {
   final titleController= TextEditingController();
 
   final referace=FirebaseDatabase.instance.ref().child('Post');
+
   bool loading=false;
   final _key= GlobalKey<FormState>();
   @override
@@ -92,5 +94,11 @@ class _RealtimeWriteState extends State<RealtimeWrite> {
         ),
       ),
     );
+  }
+  @override
+  void dispose() {
+    titleController.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 }
