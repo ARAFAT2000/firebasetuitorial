@@ -16,8 +16,8 @@ class _FetchDatabaseState extends State<FetchDatabase> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey,
-        title: Text('Display data'),
+        backgroundColor: Colors.green,
+        title: Text('CRUD Operation'),
       ),
       body: StreamBuilder<QuerySnapshot>(
           stream: database,
@@ -34,7 +34,7 @@ class _FetchDatabaseState extends State<FetchDatabase> {
                             onPressed: (){
                            deleteData(snapshot.data!.docs[index]['id']);
                             },
-                            icon: Icon(Icons.delete)),
+                            icon: CircleAvatar(child: Icon(Icons.person))),
                         title: Text(snapshot.data!.docs[index]['title']),
                         subtitle: Text(snapshot.data!.docs[index]['id']),
                         trailing: IconButton(onPressed: (){

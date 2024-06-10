@@ -1,11 +1,10 @@
-import 'package:firebasetuitorial/realtime_database/realtime_fetch_page.dart';
-import 'package:firebasetuitorial/realtime_database/write_page.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebasetuitorial/Chat_app/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'Cloud_database/write_data.dart';
-import 'Page/home_page.dart';
-import 'Screen/sign_up_screen.dart';
-import 'Screen/splass_screen.dart';
+import 'Chat_app/screen/login_screen.dart';
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -20,7 +19,15 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:CloudFirestoreWrite(),
+      home:StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context,snapshot){
+             if(snapshot.hasData){
+              return HomeScreen();
+             }else{
+               return LoginScreen();
+             }
+          }),
     );
   }
 }

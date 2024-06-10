@@ -66,7 +66,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: size.height/25,
                 ),
 
-                RoundButton(
+                RoundButtonF(
                   loading: loading,
                   title: 'Sign Up',
                   onTap: (){
